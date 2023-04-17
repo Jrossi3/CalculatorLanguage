@@ -1,6 +1,10 @@
 Jason Rossi jrossi3@stevens.edu Saicharan Saini ssaini1@stevens.edu
+
 https://github.com/Jrossi3/CalculatorLanguage
+
 I spent approximately 42 hours on this project
+
+# Testing
 The way I tested my code was through the input testing with pressing control d to end the code. One instance was I would input "print 1" then press enter then input "print 2" then press enter and then press control d. This would return 1.0 and 2.0 on separate lines. Any errors I would get, I would trace through my code to fix. 
 
 # bugs and issues
