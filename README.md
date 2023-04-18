@@ -66,7 +66,7 @@ Negative Examples:
     correct output:
     3.0
 
-2) Op-equals
+2) Relational Operations
 Positive Examples:
 
     input:
@@ -97,7 +97,7 @@ Negative Examples:
     output:
     1.0 2.0 2.0
 
-3) Relational Operations
+3) Op-equals
 Positive Examples:
 
     input:
