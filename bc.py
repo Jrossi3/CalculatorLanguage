@@ -86,15 +86,18 @@ class Parser:
                                 boolList.append("0")
                     final[counter] = " ".join(boolList)
                     counter = counter + 1
-                elif re.match(r"^print\s*\(?[-%+*/(),0-9\s^]+\)?$",statement):
+                elif re.match(r"^print\s*\(?[-%+*/(),0-9\s^<>=]+\)?$",statement):
                     parsed_expression = statement.replace("print", "").strip()
                     parsed_expression = parsed_expression.split(",")
                     result = []
                     while parsed_expression:
-                        result.append(str(helper(parsed_expression[0].strip())))
+                        if "<" in statement or ">" in statement or "=" in statement:
+                            result.append(str(self._evaluate(parsed_expression[0])))
+                        else:
+                            result.append(str(helper(parsed_expression[0].strip())))
                         parsed_expression.pop(0)
-                        counter = counter + 1
                     final[counter]=(" ".join(result))
+                    counter = counter + 1
                 else:
                     parsed_expression = statement.replace("print", "").strip()
                     if "++" in parsed_expression:
@@ -119,7 +122,7 @@ class Parser:
                         expressions = re.findall(r"\w+|[-+*/%^()]|\d+\.\d+|\d+", statement[5:])
                         final[counter] = [self._evaluate(expression) for expression in expressions]
                     counter = counter + 1
-            elif re.match(r"^\s*\(?[-+%*/(),0-9\s^]+\)?$",statement):
+            elif re.match(r"^\s*\(?[-+%*/(),0-9\s^<>=]+\)?$",statement):
                 parsed_expression = statement.strip().split(",")
                 if len(parsed_expression[0]) == 1:
                     expressions = re.findall(r"\w+|[-+*/%^()]|\d+\.\d+|\d+", statement[5:])
@@ -200,7 +203,6 @@ class Parser:
                             if int(x[0]) == 0 or int(x[1]) == 0:
                                 self.variables[var_name] = "0"
                             else:
-                                print("hi")
                                 self.variables[var_name] = "1"
                         elif "!" in line[i]:
                             x = line[i].replace("!", "")
@@ -263,14 +265,6 @@ class Parser:
         
         expression = re.sub(r"\s", "", expression)
 
-        m1 = re.search(r"[/,*,*,-,==,^,<=,>=,>,<,!=](?![\dA-Za-z_\(])", expression)
-
-        if m1:
-            if(len(final)>1):
-                exit()
-            print("parse error")
-            exit()
-
         while True:
             match = re.search(r"(\d+)\s*(==|<=|>=|!=|<|>)\s*(\d+)", expression)
 
@@ -280,22 +274,16 @@ class Parser:
                 right_operand = int(match.group(3))
                 if operator == "==":
                     result = 1 if left_operand == right_operand else 0
-                    print (result)
                 elif operator == "<=":
                     result = 1 if left_operand <= right_operand else 0
-                    print (result)
                 elif operator == ">=":
                     result = 1 if left_operand >= right_operand else 0
-                    print (result)
                 elif operator == "!=":
                     result = 1 if left_operand != right_operand else 0
-                    print (result)
                 elif operator == "<":
                     result = 1 if left_operand < right_operand else 0
-                    print (result)
                 elif operator == ">":
                     result = 1 if left_operand > right_operand else 0
-                    print (result)
                 expression = expression[:match.start()] + str(result) + expression[match.end():]
             else:
                 break
