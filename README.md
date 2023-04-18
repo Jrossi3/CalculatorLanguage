@@ -15,6 +15,7 @@ A difficult issue we solved was altering our code so that control d would end it
 
 # Four Extensions
 1) Comments
+
 Positive Examples:
 
     input:
@@ -67,6 +68,7 @@ Negative Examples:
     3.0
 
 2) Relational Operations
+
 Positive Examples:
 
     input:
@@ -98,6 +100,7 @@ Negative Examples:
     1.0 2.0 2.0
 
 3) Op-equals
+
 Positive Examples:
 
     input:
@@ -120,7 +123,8 @@ Negative Examples:
 N/A
 
 4) Boolean Operations
-Working Examples:
+
+Positive Examples:
 
     input:
     print 1&&2, 1||2, 0||0, 0&&5
